@@ -9,6 +9,22 @@ function ListGroup() {
         
         <>
             <h3>List Group</h3>
+
+            {/* 
+             Use of conditional rending: If the items array is empty, we can show a message to the user.
+             Way 1: Using Ternary Operator 
+                    Ex. {items.length === 0 ? <p>No items found !</p> : null }
+             Way 2: We can use const variable outside return statement to store the message and then use it in the JSX.
+                    Ex. Outside return write const message = items.length === 0 ? <p>No items found !</p> : null; and then use {message} in the JSX.
+             Way 3: we can create a function outside return statement to return the message and then use it in the JSX.
+                    Ex. Outside return write function renderMessage() { return items.length === 0 ? <p>No items found !</p> : null; } and then use {renderMessage()} in the JSX.
+             Way 4: We can use && operator to conditionally render the message. 
+                    Ex. This is used in next line.
+             */
+            }
+            
+            {items.length === 0 && <p>No items found !</p> }
+            
             <ul className="list-group">
                 {items.map(item => <li key={item} className="list-group-item">{item}</li>)}
             </ul>
