@@ -1,18 +1,14 @@
-import { MouseEvent } from "react";
+import { useState } from "react";
 function ListGroup() {
+  // useState hook to manage the selected index of the list items.
+  // The initial value is set to -1, indicating that no item is selected by default.
+  // It returns an array with two elements: the current state value and a function to update that state
+  // We are storing the current selected index in the state variable selectedIndex and the function to update it in setSelectedIndex.
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
   //  Reference of Bootstrap ListGroup:  https://getbootstrap.com/docs/5.3/components/list-group/
   let items = ["JavaScript", "React", "TypeScript", "MongoDB", "Angular"];
 
-  const handleClickEvent = (event: MouseEvent, item: string, index: number) => {
-    // Here typeScript require us to specify the type of all arguments.
-    // For the event argument, we can use the MouseEvent type from React (as we have imported above)
-
-    // onClick expect a callback function which will be called when the event is triggered.
-    // The callback function will receive the event object as an argument.
-    // The event object contains information about the event that occurred,
-    // such as the type of event, the target element etc.
-    console.log(index + " : " + item + " : " + event);
-  };
   return (
     // Any react component can return only one element,
     // so we can use Fragment to wrap multiple elements.
@@ -40,8 +36,12 @@ function ListGroup() {
         {items.map((item, index) => (
           <li
             key={item}
-            className="list-group-item"
-            onClick={(event) => handleClickEvent(event, item, index)}
+            className={
+              index === selectedIndex
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            onClick={(event) => setSelectedIndex(index)}
           >
             {item}
           </li>
