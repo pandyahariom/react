@@ -6,12 +6,19 @@ interface ListGroupProps {
   // displayed in the list group.
   items: string[];
   heading: string;
+  // Using function prop we can pass data to parent component
+  // (App.tsx in our case) when an item is selected from the list group.
+
+  // This syntax says that onSelectItem is:
+  // optional property (because of ?. if we remove ? it is required prop)
+  // That property is a function that takes a string as an argument and returns void.
+  onSelectItem?: (item: string) => void;
 }
 
 // Apart from below mentioned way another way is to use props as parameter
 // and then use props.items and props.heading in the JSX.
 // EX. function ListGroup(props: ListGroupProps)
-function ListGroup({ items, heading }: ListGroupProps) {
+function ListGroup({ items, heading, onSelectItem }: ListGroupProps) {
   // useState hook to manage the selected index of the list items.
   // The initial value is set to -1, indicating that no item is selected by default.
   // It returns an array with two elements: the current state value and a function to update that state
@@ -50,7 +57,10 @@ function ListGroup({ items, heading }: ListGroupProps) {
                 ? "list-group-item active"
                 : "list-group-item"
             }
-            onClick={(event) => setSelectedIndex(index)}
+            onClick={(event) => {
+              setSelectedIndex(index);
+              onSelectItem && onSelectItem(item);
+            }}
           >
             {item}
           </li>
