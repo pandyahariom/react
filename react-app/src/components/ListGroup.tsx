@@ -1,13 +1,22 @@
 import { useState } from "react";
-function ListGroup() {
+
+interface ListGroupProps {
+  // TypeScript way of define the interface.
+  // The items prop is an array of strings that will be
+  // displayed in the list group.
+  items: string[];
+  heading: string;
+}
+
+// Apart from below mentioned way another way is to use props as parameter
+// and then use props.items and props.heading in the JSX.
+// EX. function ListGroup(props: ListGroupProps)
+function ListGroup({ items, heading }: ListGroupProps) {
   // useState hook to manage the selected index of the list items.
   // The initial value is set to -1, indicating that no item is selected by default.
   // It returns an array with two elements: the current state value and a function to update that state
   // We are storing the current selected index in the state variable selectedIndex and the function to update it in setSelectedIndex.
   const [selectedIndex, setSelectedIndex] = useState(-1);
-
-  //  Reference of Bootstrap ListGroup:  https://getbootstrap.com/docs/5.3/components/list-group/
-  let items = ["JavaScript", "React", "TypeScript", "MongoDB", "Angular"];
 
   return (
     // Any react component can return only one element,
@@ -16,7 +25,7 @@ function ListGroup() {
     // To use Fragment, we need to import it from React as import {Fragment} from "react";
 
     <>
-      <h3>List Group</h3>
+      <h3>{heading}</h3>
 
       {/* 
              Use of conditional rending: If the items array is empty, we can show a message to the user.
